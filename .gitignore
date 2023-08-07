@@ -33,6 +33,9 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+.android/gradle/wrapper/gradle-wrapper.properties
+gradle-wrapper.properties
+android/local.properties
 
 # node.js
 #
