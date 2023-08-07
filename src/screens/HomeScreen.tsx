@@ -1,22 +1,33 @@
 import React from "react";
-import { Button } from "../../src";
-import { SafeAreaView, StyleSheet } from "react-native";
-import HomeIcon from "../icons/HomeIcon";
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import Text from "../components/Text/Text";
+import HomeIconFigma from "../icons/HomeIconFigma";
 
 const HomeScreen = () => {
-    return(
-        <SafeAreaView style={appStyles.mainContainer}>
-            <Button text="HomeScreen" onPress={() => console.log('spin')} styleText={{fontWeight: 'bold', fontSize: 18}} size="medium"/>
-            <HomeIcon/>
-        </SafeAreaView>
-        
-    )
-}
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.centeredContainer}>
+        <HomeIconFigma/>
+        <Text style={styles.homeText} variant='content-two-regular'>Pantalla Home</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-const appStyles = StyleSheet.create({
-    mainContainer: {
-      marginHorizontal: 15,
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+  },
+  centeredContainer: {
+    alignItems: "center",
+  },
+  homeText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 15
+  },
+});
 
-  export default HomeScreen;
+export default HomeScreen;
