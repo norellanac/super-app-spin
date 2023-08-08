@@ -50,7 +50,7 @@ const MovimientosScreen = () => {
         style={styles.flatList}
         data={filteredMovementsByMonths}
         keyExtractor={item => item.month.toString()}
-        showsVerticalScrollIndicator={false} 
+        showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <View>
             <MonthTitle title={getMonthName(item.month)} />
