@@ -5,11 +5,17 @@ import Text from '../components/Text/Text';
 import BannerCarousel from '../components/molecules/BannerCarousel';
 import {Banner} from '../types/BannerType';
 
+//Components
 import BeneficiosCardGrid from '../customComponents/BeneficiosCardGrid';
 import SubsectionComingSoon from '../customComponents/SubsectionComingSoon';
 import PointsInfo from '../customComponents/PointsInfo';
 
+//Context
+import { useAppContext } from '../contexts/AppContext';
+
 const BeneficiosScreen = () => {
+
+  const { state } = useAppContext();
 
   const banners: Banner[] = [
     {
@@ -46,7 +52,7 @@ const BeneficiosScreen = () => {
         <Text variant="title-two-semibold" style={benefitsStyles.title}>
           Beneficios
         </Text>
-        <PointsInfo points={10657}/>
+        <PointsInfo points={state.wallet}/>
         <BeneficiosCardGrid/>
         <SubsectionComingSoon title='Acumula productos' description='Muy pronto podrás sumar tus compras y ganar productos de regalo' imageSource={require('../assets/acumula.png')}/>
         <SubsectionComingSoon title='Gana más puntos' description='Muy pronto podrás ganar más puntos en el total de tu compra' imageSource={require('../assets/ganamas.png')}/>

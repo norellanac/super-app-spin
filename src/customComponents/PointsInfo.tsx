@@ -10,7 +10,7 @@ interface PointsInfoProps {
 const PointsInfo = ({ points }: PointsInfoProps) => {
 
     const currentPoints = points;
-    const value = currentPoints/100;
+    const value = (currentPoints*.10).toFixed(2);
 
   return (
     <View style={styles.container}>
