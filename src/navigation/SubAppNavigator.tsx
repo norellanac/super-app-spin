@@ -1,12 +1,17 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+
+//Screens
 import MovimientosScreen from '../screens/MovimientosScreen';
 import BeneficiosScreen from '../screens/BeneficiosScreen';
-import NavBar from '../components/NavBar/NavBar';
+
+//useNavigation methods
 import { useNavigation } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+//Navigation Components
 import { View } from 'react-native';
 import ArrowNav from '../icons/NavigationArrow';
-//import CambioPuntosScreen from '../screens/CambioPuntosScreen';
+import NavBar from '../components/NavBar/NavBar';
 
 const Stack = createStackNavigator();
 
