@@ -5,7 +5,6 @@ import { useAppContext } from "../contexts/AppContext";
 
 const CuentaScreen = () => {
   const {state, dispatch} = useAppContext();
-  console.error(state);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.centeredContainer}>

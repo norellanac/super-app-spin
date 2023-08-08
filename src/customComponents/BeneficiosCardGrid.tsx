@@ -1,13 +1,21 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import StackedCardGrid from '../components/GridView/StackedCardGrid';
+import { useNavigation } from '@react-navigation/native';
 
 const BeneficiosCardGrid = () => {
+
+  const navigation = useNavigation();
+
   const changePoints = require('../assets/change-points.png');
   const checkHistory = require('../assets/check-history.png');
 
   const handleCardPress = (title: string) => {
-    console.log('Se hizo clic en:', title);
+    if (title === 'Consulta tu historial') {
+      navigation.navigate('MovimientosScreen'as never); // Cambia 'MovimientosScreen' al nombre correcto de tu pantalla de movimientos
+    } else if (title === 'Cambia tus puntos') {
+      console.log('Se hizo clic en:', title);
+    }
   };
 
   return (

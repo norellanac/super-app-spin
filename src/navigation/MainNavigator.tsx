@@ -13,7 +13,7 @@ const MainNavigator: React.FC = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {state.profile.isAuth ? (
-          <Stack.Screen name="App" component={BottomNavigation} />
+          <Stack.Screen name="App" component={BottomNavigation} options={{headerShown: false}}/>
         ) : (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         )}

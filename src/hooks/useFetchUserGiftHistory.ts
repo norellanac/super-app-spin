@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import axios from 'axios';
 import {useAppContext} from '../contexts/AppContext';
-const API_URL = 'http://192.168.0.3:3001/history'; // Your API endpoint
+const API_URL = 'http://130.41.173.51:3001/history'; // Your API endpoint
 
 const useFetchUserGiftHistory = () => {
   const {dispatch} = useAppContext();
@@ -12,7 +12,8 @@ const useFetchUserGiftHistory = () => {
         const response = await axios.get(API_URL);
         //console.error('fetchUserGiftHistory', response.data);
         dispatch({type: 'SET_USER_GIFT_HISTORY', payload: response.data});
-      } catch (error) {
+        console.log(response.data);
+      } catch (error: any) {
         console.error('Error fetching user gift history:', error.message);
       }
     };

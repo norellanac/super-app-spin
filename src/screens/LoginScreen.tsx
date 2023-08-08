@@ -13,7 +13,7 @@ const LoginScreen: React.FC = () => {
     // Dispatch actions to update user and authentication state
     dispatch({
       type: 'SET_USER',
-      payload: {user: {phoneNumber: 50233120413}, isAuth: true},
+      payload: {user: {phoneNumber: Number(phoneNumber)}, isAuth: true},
     }); // Update user info in AppContext
   };
 

@@ -1,5 +1,5 @@
 import React, {createContext, useReducer, useContext, ReactNode} from 'react';
-import {useLocalStorage} from './useLocalStorage';
+import useLocalStorage from '../utils/useLocalStorage';
 import {UserState} from '../types/types';
 
 type State = {

@@ -13,6 +13,9 @@ import BeneficiosTabIcon from "../icons/BeneficiosTabIcon";
 import CarteraTabIcon from "../icons/CarteraTabIcon";
 import CuentaTabIcon from "../icons/CuentaTabIcon";
 
+//SubStackNavigator
+import SubAppNavigator from "./SubAppNavigator";
+
 //Components
 import BottomTabText from "../customComponents/BottomTabText";
 
@@ -40,8 +43,9 @@ const BottomNavigation = () => {
       />
       <Tab.Screen
         name="Beneficios"
-        component={BeneficiosScreen}
+        component={SubAppNavigator}
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <BeneficiosTabIcon isFocused={focused}/>
           ),
