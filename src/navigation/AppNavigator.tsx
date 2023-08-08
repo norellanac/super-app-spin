@@ -77,7 +77,6 @@ const BottomNavigation = () => {
         name="Cuenta"
         component={CuentaScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <CuentaTabIcon isFocused={focused}/>
           ),

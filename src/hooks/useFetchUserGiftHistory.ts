@@ -1,26 +1,24 @@
-import {useEffect} from 'react';
-import axios from 'axios';
-import {useAppContext} from '../contexts/AppContext';
-const API_URL = 'http://0.0.0.0:3001/history'; // Your API endpoint
+import { useEffect } from 'react';
+import { useAppContext } from '../contexts/AppContext';
+import useFetch from './useFetch';
+const API_URL = 'http://192.168.0.3:3001/history'; // Your API endpoint
 
 const useFetchUserGiftHistory = () => {
-  const {dispatch} = useAppContext();
+  const { dispatch } = useAppContext();
+  const { data, loading, error } = useFetch(API_URL);
+  console.log(data);
 
   useEffect(() => {
-    const fetchUserGiftHistory = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        const totalPoints = response.data.reduce((total: number, item: any) => total + item.points, 0);
-        //console.error('fetchUserGiftHistory', response.data);
-        dispatch({type: 'SET_USER_GIFT_HISTORY', payload: response.data});
-        dispatch({ type: 'SET_WALLET', payload: totalPoints });
-      } catch (error: any) {
-        console.error('Error fetching user gift history:', error.message);
-      }
-    };
-
-    fetchUserGiftHistory();
-  }, [dispatch]);
+    if (data) {
+      const totalPoints = data.reduce(
+        (total: number, item: any) => total + item.points,
+        0,
+      );
+      dispatch({ type: 'SET_WALLET', payload: totalPoints });
+      dispatch({ type: 'SET_USER_GIFT_HISTORY', payload: data });
+      console.error('usefetch', data, totalPoints);
+    }
+  }, [data]);
 
   return null; // This hook doesn't need to return anything
 };

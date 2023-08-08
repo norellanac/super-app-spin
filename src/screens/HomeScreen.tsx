@@ -2,13 +2,17 @@ import React from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import Text from "../components/Text/Text";
 import HomeIconFigma from "../icons/HomeIconFigma";
+import useFetchUserGiftHistory from "../hooks/useFetchUserGiftHistory";
 
 const HomeScreen = () => {
+  useFetchUserGiftHistory(); // Fetch user gift history
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.centeredContainer}>
-        <HomeIconFigma/>
-        <Text style={styles.homeText} variant='content-two-regular'>Pantalla Home</Text>
+        <HomeIconFigma />
+        <Text style={styles.homeText} variant="content-two-regular">
+          Pantalla Home
+        </Text>
       </View>
     </SafeAreaView>
   );

@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import axios, {AxiosResponse} from 'axios';
+import { useState, useEffect } from 'react';
+import axios, { AxiosResponse } from 'axios';
 
 type FetchResult<T> = {
   data: any;
@@ -27,7 +27,7 @@ const useFetch = <T>(url: string): FetchResult<T> => {
     fetchData();
   }, [url]);
 
-  return {data, loading, error};
+  return { data, loading, error };
 };
 
 export default useFetch;
