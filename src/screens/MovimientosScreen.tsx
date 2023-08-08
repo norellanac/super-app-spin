@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, FlatList, View} from 'react-native';
+
+//Tabs
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 //Context
 import {useAppContext} from '../contexts/AppContext';
@@ -32,6 +35,14 @@ const MovimientosScreen = () => {
   const filteredMovementsByMonths = movementsByMonths
     .filter(({movements}) => movements.length > 0)
     .sort((a, b) => b.month - a.month);
+
+    const [index, setIndex] = useState(0);
+
+    const routes = [
+      { key: 'all', title: 'Todos' },
+      { key: 'earned', title: 'Ganados' },
+      { key: 'spent', title: 'Usados' },
+    ];
 
   return (
     <SafeAreaView style={styles.container}>
