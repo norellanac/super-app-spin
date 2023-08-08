@@ -1,38 +1,57 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, FlatList, View } from 'react-native';
-import Spinner from '../components/atoms/Spinner/Spinner';
-import useFetch from '../hooks/useFetch';
-import { useAppContext } from '../contexts/AppContext';
+import {SafeAreaView, StyleSheet, FlatList, View} from 'react-native';
+
+//Context
+import {useAppContext} from '../contexts/AppContext';
+
+//Types
+import {Movement} from '../types/Movements';
+
+//Functions
+import {getMonthName} from '../utils/monthName';
+import {filterMovementsByMonth} from '../utils/timeUtils';
+
+//Components
+import MonthTitle from '../customComponents/MonthTitle';
+import MovementItem from '../customComponents/MovimientoComponent';
 
 const MovimientosScreen = () => {
-  const { data, loading, error } = useFetch('http://0.0.0.0:3001/history');
-  const { state } = useAppContext();
+  const {state} = useAppContext();
+  const movementsByMonths: {month: number; movements: Movement[]}[] = [];
 
-  if (loading) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Spinner size={'medium'} label={'Cargando Movimiento...'} />
-      </SafeAreaView>
+  //Organize movements
+  for (let month = 0; month < 12; month++) {
+    const filteredMovements = filterMovementsByMonth(
+      state.userGiftHistory,
+      month,
     );
+    movementsByMonths.push({month, movements: filteredMovements});
   }
 
-  if (error) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text>Error al cargar los movimientos</Text>
-      </SafeAreaView>
-    );
-  }
+  //Filtering movements by month
+  const filteredMovementsByMonths = movementsByMonths
+    .filter(({movements}) => movements.length > 0)
+    .sort((a, b) => b.month - a.month);
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={state.userGiftHistory}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            <Text style={styles.entity}>{item.entity}</Text>
-            <Text style={styles.date}>{item.date}</Text>
-            <Text style={styles.points}>{item.points} puntos</Text>
+        style={styles.flatList}
+        data={filteredMovementsByMonths}
+        keyExtractor={item => item.month.toString()}
+        showsVerticalScrollIndicator={false} 
+        renderItem={({item}) => (
+          <View>
+            <MonthTitle title={getMonthName(item.month)} />
+            {item.movements.map(movement => (
+              <MovementItem
+                key={movement.id}
+                entity={movement.entity}
+                date={movement.date}
+                points={movement.points}
+                operation={movement.operation}
+              />
+            ))}
           </View>
         )}
       />
@@ -45,8 +64,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  flatList: {
+    marginHorizontal: 15,
+  },
   itemContainer: {
-    padding: 16,
+    paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: 'lightgray',
   },

@@ -1,0 +1,7 @@
+export interface Movement {
+    id: number;
+    entity: string;
+    date: string;
+    points: number;
+    operation: string;
+  }
