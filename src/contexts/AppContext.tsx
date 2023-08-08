@@ -1,6 +1,6 @@
-import React, {createContext, useReducer, useContext, ReactNode} from 'react';
+import React, { createContext, useReducer, useContext, ReactNode } from 'react';
 import useLocalStorage from '../utils/useLocalStorage';
-import {UserState} from '../types/types';
+import { UserState } from '../types/types';
 
 type State = {
   profile: UserState;
@@ -10,11 +10,11 @@ type State = {
 };
 
 type Action =
-  | {type: 'SET_USER'; payload: UserState}
-  | {type: 'LOGOUT'}
-  | {type: 'SET_GIFTS'; payload: any[]}
-  | {type: 'SET_WALLET'; payload: number}
-  | {type: 'SET_USER_GIFT_HISTORY'; payload: any[]};
+  | { type: 'SET_USER'; payload: UserState }
+  | { type: 'LOGOUT' }
+  | { type: 'SET_GIFTS'; payload: any[] }
+  | { type: 'SET_WALLET'; payload: number }
+  | { type: 'SET_USER_GIFT_HISTORY'; payload: any[] };
 
 type AppContextType = {
   state: State;
@@ -24,7 +24,7 @@ type AppContextType = {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const initialState: State = {
-  profile: {user: {phoneNumber: null}, isAuth: false},
+  profile: { user: { phoneNumber: null }, isAuth: false },
   gifts: [],
   wallet: 0,
   userGiftHistory: [],
@@ -33,23 +33,27 @@ const initialState: State = {
 const appReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_USER':
-      return {...state, profile: action.payload};
+      return { ...state, profile: action.payload };
     case 'SET_GIFTS':
-      return {...state, gifts: action.payload};
+      return { ...state, gifts: action.payload };
     case 'SET_WALLET':
-      return {...state, wallet: action.payload};
+      return { ...state, wallet: action.payload };
     case 'SET_USER_GIFT_HISTORY':
-      return {...state, userGiftHistory: action.payload}; // Update user gift history
+      return { ...state, userGiftHistory: action.payload };
+    case 'LOGOUT':
+      return initialState;
     default:
       return state;
   }
 };
 
-export const AppProvider: React.FC<{children: ReactNode}> = ({children}) => {
+export const AppProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   return (
-    <AppContext.Provider value={{state, dispatch}}>
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );
