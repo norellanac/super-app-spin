@@ -15,7 +15,6 @@ const useFetchUserGiftHistory = () => {
       );
       dispatch({ type: 'SET_WALLET', payload: totalPoints });
       dispatch({ type: 'SET_USER_GIFT_HISTORY', payload: data });
-      console.error('usefetch', data, totalPoints);
     }
   }, [data]);
 
