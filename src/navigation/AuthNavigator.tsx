@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 const AuthNavigator: React.FC = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 };

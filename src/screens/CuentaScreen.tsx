@@ -101,6 +101,8 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: 15,
     marginTop: 10,
+    fontSize: 22,
+    fontWeight: '500',
   },
   versionBlock: {
     position: 'absolute',
