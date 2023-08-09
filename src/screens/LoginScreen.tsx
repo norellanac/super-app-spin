@@ -25,6 +25,10 @@ const LoginScreen = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Image source={require('../assets/spinPlus/Splash2x.jpg')} style={styles.backgroundImage} />
+      <View style={styles.centerContainer}>
+        <Image source={require('../assets/spinPlus/SpinPlusLogo.png')} style={styles.logoImage} />
+        <Text style={styles.logoText}>Ahora OXXO a un click de distancia</Text>
+      </View>
       <View style={styles.infoContainer}>
         <TextInput
             variant='numeric'
@@ -42,10 +46,7 @@ const LoginScreen = () => {
             size="medium"
           />
       </View>
-      <View style={styles.centerContainer}>
-        <Image source={require('../assets/spinPlus/SpinPlusLogo.png')} style={styles.logoImage} />
-        <Text style={styles.logoText}>Ahora OXXO a un click de distancia</Text>
-      </View>
+      
     </SafeAreaView>
   );
 };
