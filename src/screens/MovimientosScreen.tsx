@@ -44,31 +44,67 @@ const MovimientosScreen = () => {
       { key: 'spent', title: 'Usados' },
     ];
 
+    const renderScene = SceneMap({
+      all: () => <TabContent data={filteredMovementsByMonths} />,
+      earned: () => (
+        <TabContent
+          data={filteredMovementsByMonths.map(item => ({
+            month: item.month,
+            movements: item.movements.filter(movement => movement.operation === 'earned'),
+          }))}
+        />
+      ),
+      spent: () => (
+        <TabContent
+          data={filteredMovementsByMonths.map(item => ({
+            month: item.month,
+            movements: item.movements.filter(movement => movement.operation === 'spent'),
+          }))}
+        />
+      ),
+    });
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        style={styles.flatList}
-        data={filteredMovementsByMonths}
-        keyExtractor={item => item.month.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <View>
-            <MonthTitle title={getMonthName(item.month)} />
-            {item.movements.map(movement => (
-              <MovementItem
-                key={movement.id}
-                entity={movement.entity}
-                date={movement.date}
-                points={movement.points}
-                operation={movement.operation}
-              />
-            ))}
-          </View>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        renderTabBar={props => (
+          <TabBar
+            {...props}
+            indicatorStyle={styles.tabIndicator}
+            style={styles.tabBar}
+            labelStyle={styles.tabLabel}
+          />
         )}
       />
     </SafeAreaView>
   );
 };
+
+const TabContent = ({ data }: any) => (
+  <FlatList
+    style={styles.flatList}
+    showsVerticalScrollIndicator={false}
+    data={data}
+    keyExtractor={item => item.month.toString()}
+    renderItem={({ item }) => (
+      <View>
+        <MonthTitle title={getMonthName(item.month)} />
+        {item.movements.map((movement: Movement) => (
+          <MovementItem
+            key={movement.id}
+            entity={movement.entity}
+            date={movement.date}
+            points={movement.points}
+            operation={movement.operation}
+          />
+        ))}
+      </View>
+    )}
+  />
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -94,6 +130,19 @@ const styles = StyleSheet.create({
   points: {
     fontSize: 16,
     color: 'green',
+  },
+  tabIndicator: {
+    backgroundColor: '#1723D3',
+
+  },
+  tabBar: {
+    backgroundColor: 'white',
+  },
+  tabLabel: {
+    color: 'black',
+    textTransform: 'capitalize',
+    fontSize: 14,
+    fontWeight: '600'
   },
 });
 

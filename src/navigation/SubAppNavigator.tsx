@@ -3,7 +3,6 @@ import React from 'react';
 //Screens
 import MovimientosScreen from '../screens/MovimientosScreen';
 import BeneficiosScreen from '../screens/BeneficiosScreen';
-import ChangePointsScreen from '../screens/CambiarPuntosScreen';
 
 //useNavigation methods
 import { useNavigation } from '@react-navigation/native';
@@ -59,13 +58,22 @@ const SubAppNavigator = () => {
           ),
         }}
       />
-      <Stack.Screen
-        name="exchangeScreen"
-        component={MerchantsScreen}
-        options={{
-          headerShown: true,
-          headerTitle: 'Cambia tus puntos',
-        }}
+      <Stack.Screen 
+      name="exchangeScreen" 
+      component={MerchantsScreen} 
+      options={{
+        header: () => (
+          <NavBar
+            variant={'primary'}
+            title={'Cambia tus puntos'}
+            leftSection={
+              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+                <ArrowNav onPress={handleArrowNavPress}/>
+              </View>
+            }
+          />
+        ),
+      }}
       />
       <Stack.Screen
         name="BalanceScreen"
@@ -82,23 +90,6 @@ const SubAppNavigator = () => {
           headerShown: true,
           headerTitle: 'Detalles de la transacción',
         }}
-      />
-      <Stack.Screen 
-      name="CambiarPuntosScreen" 
-      component={ChangePointsScreen} 
-      options={{
-        header: () => (
-          <NavBar
-            variant={'primary'}
-            title={'Cambia tus puntos'}
-            leftSection={
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
-                <ArrowNav onPress={handleArrowNavPress}/>
-              </View>
-            }
-          />
-        ),
-      }}
       />
     </Stack.Navigator>
   );
