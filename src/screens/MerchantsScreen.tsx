@@ -15,7 +15,7 @@ const MerchantsScreen = () => {
     error,
   } = useFetchMerchantList();
   useEffect(() => {
-    console.log('Hola');
+    //console.log('Hola');
   }, [isLoading]);
   return isLoading ? (
     <Spinner />
@@ -30,7 +30,7 @@ const MerchantsScreen = () => {
           subtitle="Categoria"
           rightIcon={<Text>{'>'}</Text>}
           leftIcon={require('../assets/MovsImages/oxxomov.png')}
-          onPress={() => navigation.navigate('BalanceScreen')}
+          onPress={() => navigation.navigate('BalanceScreen' as never)}
         />
       )}
     />

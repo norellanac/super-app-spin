@@ -4,4 +4,5 @@ export interface Movement {
     date: string;
     points: number;
     operation: string;
+    transactionNo?: string;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import Text from '../components/Text/Text';
+import { useNavigation } from '@react-navigation/native';
 
 //Types
 import { MovementItemProps } from '../types/MovementItem';
@@ -9,12 +10,19 @@ import { MovementItemProps } from '../types/MovementItem';
 import { formatDate } from '../utils/movementDate';
 import { getImageSource } from '../utils/movementImage';
 
-const MovementItem = ({ entity, date, points, operation }: MovementItemProps) => {
+const MovementItem = ({ entity, date, points, operation, transactionNo }: MovementItemProps) => {
+
+  const navigation = useNavigation();
+
   const imageSource = getImageSource(entity);
   const pointsColor = operation === 'earned' ? 'black' : 'red';
 
+  const handlePress = () => {
+    navigation.navigate('DetallesScreen', { entity, date, points, operation, transactionNo, imageSource });
+  };
+
   return (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={handlePress}>
       <View style={styles.imageContainer}>
         <Image source={imageSource} style={styles.entityImage} resizeMode="contain" />
       </View>
@@ -27,7 +35,7 @@ const MovementItem = ({ entity, date, points, operation }: MovementItemProps) =>
         {operation === 'earned' ? '+' : ''} {points} 
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

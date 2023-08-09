@@ -29,7 +29,7 @@ const BeneficiosCardGrid = () => {
         {
           title: 'Cambia tus puntos',
           icon: <Image source={changePoints} style={styles.imageGrid} />,
-          onPress: () => navigation.navigate('exchangeScreen'),
+          onPress: () => navigation.navigate('exchangeScreen' as never),
         },
       ]}
       titlesSize="small"

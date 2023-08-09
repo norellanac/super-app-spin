@@ -2,5 +2,6 @@ export interface MovementItemProps {
     entity: string,
     date: string,
     points: number,
-    operation: string
+    operation: string,
+    transactionNo?: string,
 }
