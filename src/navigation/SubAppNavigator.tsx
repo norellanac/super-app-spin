@@ -3,6 +3,7 @@ import React from 'react';
 //Screens
 import MovimientosScreen from '../screens/MovimientosScreen';
 import BeneficiosScreen from '../screens/BeneficiosScreen';
+import DetallesScreen from '../screens/DetallesMovimientoScreen';
 
 //useNavigation methods
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +17,7 @@ import MerchantsScreen from '../screens/MerchantsScreen';
 import BalanceScreen from '../screens/BalanceScreen';
 import TicketScreen from '../screens/TicketScreen';
 
+
 const Stack = createStackNavigator();
 
 const SubAppNavigator = () => {
@@ -24,6 +26,11 @@ const SubAppNavigator = () => {
   //Events Handler for Navigation
   const handleArrowNavPress = () => {
     navigation.navigate('BeneficiosScreen' as never);
+  };
+
+  //Events Handler for Navigation
+  const handleArrowNavPressDetails = () => {
+    navigation.navigate('MovimientosScreen' as never);
   };
 
   return (
@@ -52,6 +59,29 @@ const SubAppNavigator = () => {
                     marginTop: 10,
                   }}>
                   <ArrowNav onPress={handleArrowNavPress} />
+                </View>
+              }
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="DetallesScreen"
+        component={DetallesScreen as never}
+        options={{
+          header: () => (
+            <NavBar
+              variant={'primary'}
+              title={'Detalles'}
+              leftSection={
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}>
+                  <ArrowNav onPress={handleArrowNavPressDetails} />
                 </View>
               }
             />

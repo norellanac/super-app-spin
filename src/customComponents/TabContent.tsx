@@ -21,6 +21,7 @@ export const TabContent = ({ data }: TabContentProps) => (
               date={movement.date}
               points={movement.points}
               operation={movement.operation}
+              transactionNo={movement.transactionNo}
             />
           ))}
         </View>
