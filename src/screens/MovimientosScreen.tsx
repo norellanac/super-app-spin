@@ -90,26 +90,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-
-  itemContainer: {
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
-  },
-  entity: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  date: {
-    fontSize: 16,
-    color: 'gray',
-  },
-  points: {
-    fontSize: 16,
-    color: 'green',
-  },
   tabIndicator: {
     backgroundColor: '#1723D3',
+    height: 3,
   },
   tabBar: {
     backgroundColor: 'white',
