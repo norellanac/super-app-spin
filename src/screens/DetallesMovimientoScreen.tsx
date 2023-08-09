@@ -32,8 +32,7 @@ const DetallesScreen = ({ route }: Props) => {
   const status = operation === 'earned' ? 'ganaste' : 'gastaste';
 
   // Calcular el monto total
-  const calculatedTotal = operation === 'earned' ? 0.1 : 10;
-  const montoTotal = (points / calculatedTotal).toFixed(2);
+  const montoTotal = (points / 10).toFixed(2);
 
   // Formatear el monto total como moneda
   const formattedMontoTotal = parseFloat(montoTotal).toLocaleString('es-MX', {
