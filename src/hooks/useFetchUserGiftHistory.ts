@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { useAppContext } from '../contexts/AppContext';
 import useFetch from './useFetch';
-const API_URL = 'http://192.168.0.3:3001/history'; // Your API endpoint
+const API_URL = 'http://0.0.0.0:3001/history'; // Your API endpoint
 
 const useFetchUserGiftHistory = () => {
   const { dispatch } = useAppContext();
-  const { data, loading, error } = useFetch(API_URL);
-  console.log(data);
+  const { data } = useFetch(API_URL);
 
   useEffect(() => {
     if (data) {

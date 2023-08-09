@@ -12,9 +12,9 @@ const BeneficiosCardGrid = () => {
 
   const handleCardPress = (title: string) => {
     if (title === 'Consulta tu historial') {
-      navigation.navigate('MovimientosScreen'as never); // Cambia 'MovimientosScreen' al nombre correcto de tu pantalla de movimientos
+      navigation.navigate('MovimientosScreen'as never);
     } else if (title === 'Cambia tus puntos') {
-      console.log('Se hizo clic en:', title);
+      navigation.navigate('CambiarPuntosScreen'as never);
     }
   };
 

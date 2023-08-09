@@ -3,6 +3,7 @@ import React from 'react';
 //Screens
 import MovimientosScreen from '../screens/MovimientosScreen';
 import BeneficiosScreen from '../screens/BeneficiosScreen';
+import ChangePointsScreen from '../screens/CambiarPuntosScreen';
 
 //useNavigation methods
 import { useNavigation } from '@react-navigation/native';
@@ -41,6 +42,23 @@ const SubAppNavigator = () => {
           <NavBar
             variant={'primary'}
             title={'Movimientos'}
+            leftSection={
+              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+                <ArrowNav onPress={handleArrowNavPress}/>
+              </View>
+            }
+          />
+        ),
+      }}
+      />
+      <Stack.Screen 
+      name="CambiarPuntosScreen" 
+      component={ChangePointsScreen} 
+      options={{
+        header: () => (
+          <NavBar
+            variant={'primary'}
+            title={'Cambia tus puntos'}
             leftSection={
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                 <ArrowNav onPress={handleArrowNavPress}/>
