@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView, StyleSheet, Image } from 'react-native';
+
+//FEMSA Components
 import Text from '../components/Text/Text';
 import TextInput from '../components/atoms/TextInput';
-import { useAppContext } from '../contexts/AppContext';
 import Button from '../components/Button/Button';
+
+//Context
+import { useAppContext } from '../contexts/AppContext';
+
 
 const LoginScreen = () => {
 
@@ -23,8 +28,9 @@ const LoginScreen = () => {
       <View style={styles.infoContainer}>
         <TextInput
             variant='numeric'
-            label='Número de celular'
-            placeholder="Número de celular"
+            label='🇲🇽 Número de celular'
+            maxLength={10}
+            placeholder="🇲🇽 Número de celular"
             value={phoneNumber}
             onChangeText={setPhoneNumber}
           />
@@ -35,6 +41,10 @@ const LoginScreen = () => {
             text="Comenzar"
             size="medium"
           />
+      </View>
+      <View style={styles.centerContainer}>
+        <Image source={require('../assets/spinPlus/SpinPlusLogo.png')} style={styles.logoImage} />
+        <Text style={styles.logoText}>Ahora OXXO a un click de distancia</Text>
       </View>
     </SafeAreaView>
   );
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '35%',
+    height: '40%',
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -79,46 +89,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     marginHorizontal: 15,
   },
-  otherSection:{
-    marginHorizontal: 15,
+  centerContainer: {
+    flex: 1,
+    marginHorizontal: 25,
+    marginTop: 100,
   },
-  leftContent: {
-    flex: 0.65,
-    marginRight: 5,
-  },
-  subtitle: {
-    fontWeight: '500',
-    fontSize: 20,
-  },
-  name: {
-    marginBottom: 10,
-    fontSize: 30,
-    fontWeight: '800',
-  },
-  rightContent: {
-    flex: 0.35,
-    alignItems: 'flex-end',
-  },
-  image: {
-    width: 100,
+  logoImage: {
+    width: 115,
     height: 100,
+    marginBottom: 10,
+    resizeMode: 'contain'
   },
-  title: {
-    marginHorizontal: 15,
-    marginBottom: 25,
-    fontSize: 22,
-    fontWeight: '500',
-  },
-  versionBlock: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    alignItems: 'center',
-    paddingVertical: 10,
-    backgroundColor: '#ffffff',
-  },
-  text: {
-    fontSize: 12,
-    color: '#888',
+  logoText: {
+    fontSize: 45,
+    fontWeight: '600',
+    color: '#fff'
   },
 });
