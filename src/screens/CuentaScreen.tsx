@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, SafeAreaView } from 'react-native';
 import Text from '../components/Text/Text';
 import { useAppContext } from '../contexts/AppContext';
 import Tag from '../components/atoms/Tag';
@@ -7,22 +7,28 @@ import ElementListItem from '../customComponents/ElementListItem';
 
 const CuentaScreen = () => {
   const { state, dispatch } = useAppContext();
-  console.log(state);
+
   const handleLogOff = () => {
     dispatch({
       type: 'LOGOUT',
     });
   };
+
   return (
-    <>
+    <SafeAreaView style={styles.safeContainer}>
+      <View>
+        <Text variant="title-two-semibold" style={styles.title}>
+          Cuenta
+        </Text>
+      </View>
       <View style={styles.container}>
         <View style={styles.leftContent}>
-          <Text variant="jumbo-two" style={styles.points}>
+          <Text variant="jumbo-two" style={styles.name}>
             Maria Florencia
           </Text>
           <View>
             <Tag
-              text={`${1200} puntos`}
+              text={`${state.wallet} puntos`}
               variant="points"
               leftIcon={require('../assets/points.png')}
               size="large"
@@ -37,29 +43,39 @@ const CuentaScreen = () => {
           />
         </View>
       </View>
-
-      <Text variant="title-one-medium" style={{ margin: 10 }}>
-        Otras acciones{' '}
-      </Text>
-      <ElementListItem
-        title="Cierra sesión"
-        leftIcon={require('../assets/logout.png')}
-        onPress={handleLogOff}
-      />
+      <View style={styles.otherSection}>
+        <Text variant="title-one-medium" style={styles.subtitle}>
+          Otras acciones
+        </Text>
+        <ElementListItem
+          title="Cierra sesión"
+          leftIcon={require('../assets/logout.png')}
+          onPress={handleLogOff}
+        />
+      </View>
+      
       <View style={styles.versionBlock}>
         <Text style={styles.text}>Versión: 1.203.430.983</Text>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 10,
+    paddingVertical: 35,
     paddingHorizontal: 6,
+    marginHorizontal: 15,
+  },
+  otherSection:{
+    marginHorizontal: 15,
   },
   leftContent: {
     flex: 0.65,
@@ -67,10 +83,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontWeight: '500',
-    fontSize: 18,
+    fontSize: 20,
   },
-  points: {
+  name: {
     marginBottom: 10,
+    fontSize: 30,
     fontWeight: '800',
   },
   rightContent: {
@@ -81,13 +98,17 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  title: {
+    marginHorizontal: 15,
+    marginTop: 10,
+  },
   versionBlock: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
     alignItems: 'center',
     paddingVertical: 10,
-    backgroundColor: '#f0f0f0', // Optional background color
+    backgroundColor: '#ffffff',
   },
   text: {
     fontSize: 12,
