@@ -78,7 +78,6 @@ const BalanceScreen = () => {
           }}>
           <PointsInfo
             points={state.wallet}
-            imageSRC={require('../assets/spinPlus/fanGlove.png')}
           />
         </View>
         <View>

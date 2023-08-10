@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import Text from '../components/Text/Text';
 import Tag from '../components/atoms/Tag';
+import InfoICon from '../icons/InfoIcon';
 
 interface PointsInfoProps {
   points: number;
@@ -18,9 +19,18 @@ const PointsInfo = ({ points, imageSRC }: PointsInfoProps) => {
         <Text variant="subtitle-semibold" style={styles.subtitle}>
           Tienes
         </Text>
-        <Text variant="jumbo-two" style={styles.points}>
-          {points.toLocaleString()} puntos
-        </Text>
+        {imageSRC ? (
+          <Text variant="jumbo-two" style={styles.points}>
+            {points.toLocaleString()} puntos
+          </Text>
+        ) : (
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+            <Text variant="jumbo-two" style={styles.points}>
+              {points.toLocaleString()} puntos
+            </Text>
+            <InfoICon/>
+          </View>
+        )}
         <View>
           <Tag
             text={`Valen $${value}`}
@@ -30,13 +40,15 @@ const PointsInfo = ({ points, imageSRC }: PointsInfoProps) => {
           />
         </View>
       </View>
-      <View style={styles.rightContent}>
-        <Image
-          source={imageSRC}
-          style={styles.image}
-          resizeMode="contain"
-        />
-      </View>
+      {imageSRC ? (
+        <View style={styles.rightContent}>
+          <Image
+            source={imageSRC}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        </View>
+      ) : null}
     </View>
   );
 };
