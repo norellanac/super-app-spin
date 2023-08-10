@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import Text from '../components/Text/Text';
-import CardPoints from '../customComponents/CardPoints';
 import { useAppContext } from '../contexts/AppContext';
 import Button from '../components/Button/Button';
-import GridView from '../components/GridView/GridView';
 import TextInput from '../components/atoms/TextInput';
 import Disclaimer from '../components/Disclaimer/Disclaimer';
 import { useNavigation } from '@react-navigation/native';
+import PointsInfo from '../customComponents/PointsInfo';
+import { FlatList } from 'react-native-gesture-handler';
 
 const BalanceScreen = () => {
   const { state } = useAppContext();
@@ -16,7 +16,7 @@ const BalanceScreen = () => {
 
   const [textInputValue, setTextInputValue] = useState('0');
 
-  const handleCardPress = (amount:number) => {
+  const handleCardPress = (amount: number) => {
     const newValue = (parseFloat(textInputValue) || 0) + amount;
     setTextInputValue(newValue.toString());
   };
@@ -26,89 +26,178 @@ const BalanceScreen = () => {
       { amount: 50, points: 500 },
       { amount: 100, points: 1000 },
       { amount: 200, points: 2000 },
-      { amount: 500, points: 5000 }
+      { amount: 500, points: 5000 },
     ];
 
     return availableCards.filter(card => pointsUser >= card.points);
   };
 
-  const renderCard = (card: any) => (
-    <View style={{ margin: 5 }} key={card.amount}>
-      <Button
-        disabled={pointsUser / 10 - parseInt(textInputValue) < card.amount}
-        variant="secondary"
-        onPress={() => handleCardPress(card.amount)}
-        text={`$${card.amount}`}
-        size={card.amount === 200 ? 'small' : 'large'}
-      />
-      <Text variant='default-body'> {card.points} puntos</Text>
-    </View>
-  );
-
   const shouldShowCards = pointsUser / 10 >= 50;
   const shouldShowDisclaimer = pointsUser / 10 < 20;
 
+  const renderCard = (card: string | number | any) => (
+    <View style={styles.cardContainer} key={card.amount}>
+      <TouchableOpacity
+        disabled={pointsUser / 10 - parseInt(textInputValue) < card.amount}
+        onPress={() => handleCardPress(card.amount)}
+        style={[
+          styles.touchableContainer,
+          {
+            backgroundColor:
+              pointsUser / 10 - parseInt(textInputValue) < card.amount
+                ? '#00000010'
+                : '#E0E0FF',
+          },
+        ]}>
+        <Text
+          style={[
+            styles.touchableText,
+            {
+              color:
+                pointsUser / 10 - parseInt(textInputValue) < card.amount
+                  ? '#00000085'
+                  : '#1723D3',
+            },
+          ]}>
+          {`$${card.amount}`}
+        </Text>
+      </TouchableOpacity>
+      <Text variant="default-body" style={styles.cardPointsText}> {card.points} puntos</Text>
+    </View>
+  );
+
   return (
-    <>
-      <CardPoints
-        title={`${pointsUser} puntos`}
-        tagText={`$ ${(pointsUser / 10).toFixed(2)}`}
-      />
-      <Text variant="subtitle-medium">
-        Elige o escribe el valor de los puntos que quieres cambiar
-      </Text>
-      {shouldShowCards && <GridView data={generateCards().map(renderCard)} />}
-
-      <Text variant="subtitle-medium"> Otro</Text>
-      <TextInput
-        variant="default"
-        placeholder="Monto en pesos"
-        value={textInputValue}
-        onChangeText={newValue => setTextInputValue(newValue)}
-        onValidation={isValid => {
-          console.log(isValid);
-        }}
-        label="Monto en pesos"
-      />
-
-      <Text>El valor máximo que puedes cambiar es $1,000.00</Text>
-      {shouldShowDisclaimer && (
-        <Disclaimer
-          variant="warning"
-          text="Recuerda que necesitas tener mínimo $20.00 en puntos para poder cambiarlos con la marca que elegiste"
-          backgroundColor="lightBlue"
-          textColor="black"
-          iconColor="blue"
-        />
-      )}
-
-      <Button
-        disabled={shouldShowDisclaimer && parseInt(textInputValue) < 20}
-        variant="primary"
-        onPress={() => {
-          navigation.navigate('TicketScreen' as never);
-        }}
-        text="Continuar"
-        size="large"
-      />
-    </>
+    <SafeAreaView style={styles.safeContainer}>
+      <View style={styles.container}>
+        <View
+          style={{
+            marginBottom: 15,
+            borderBottomWidth: 1,
+            borderBottomColor: '#00000025',
+            paddingBottom: 10,
+          }}>
+          <PointsInfo
+            points={state.wallet}
+            imageSRC={require('../assets/spinPlus/fanGlove.png')}
+          />
+        </View>
+        <View>
+          <Text variant="subtitle-medium" style={styles.gridText}>
+            Elige o escribe el valor de los puntos que quieres cambiar
+          </Text>
+          {shouldShowCards && (
+            <FlatList
+              numColumns={2}
+              data={generateCards()}
+              renderItem={({ item }) => renderCard(item)}
+              keyExtractor={item => item.amount.toString()}
+            />
+          )}
+          <Text variant="subtitle-medium" style={styles.inputText}>
+            Otro:
+          </Text>
+          <TextInput
+            variant="numeric"
+            placeholder="Monto en pesos"
+            value={textInputValue}
+            onChangeText={newValue => setTextInputValue(newValue)}
+            onValidation={isValid => {
+              console.log(isValid);
+            }}
+            label="Monto en pesos"
+          />
+          <Text style={styles.alertText}>
+            El valor máximo que puedes cambiar es $1,000.00
+          </Text>
+          {shouldShowDisclaimer && (
+            <View style={{paddingTop: 15}}>
+              <Disclaimer
+                variant="custom"
+                text="Recuerda que necesitas tener mínimo $20.00 en puntos para poder cambiarlos con la marca que elegiste"
+                backgroundColor="#FFDFBC"
+                textColor="black"
+                iconColor='#955000'
+              />
+            </View>
+            
+          )}
+        </View>
+        <View
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            paddingBottom: 25,
+            paddingTop: 25,
+            flex: 1,
+          }}>
+          <Button
+            disabled={shouldShowDisclaimer && parseInt(textInputValue) < 20}
+            variant="primary"
+            onPress={() => {
+              navigation.navigate('TicketScreen' as never);
+            }}
+            text="Continuar"
+            size="large"
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeContainer: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  container: {
+    flex: 1,
+
+    marginHorizontal: 15,
+  },
+  cardContainer: {
+    marginVertical: 5,
     justifyContent: 'center',
-  },
-  centeredContainer: {
     alignItems: 'center',
+    width: '50%',
+    paddingHorizontal: 10,
   },
-  homeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 15,
+  gridText: {
+    fontSize: 18,
+    lineHeight: 23,
+    paddingBottom: 15,
+    paddingTop: 5,
   },
+  alertText: {
+    fontSize: 14,
+    paddingBottom: 5,
+    paddingTop: 10,
+    paddingHorizontal: 5,
+    color: '#00000090',
+  },
+  inputText: {
+    paddingVertical: 15,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  touchableContainer: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    width: '100%',
+    margin: 5,
+  },
+  touchableText: {
+    color: '#373764',
+    fontSize: 18,
+    fontWeight: '600',
+    paddingVertical: 2,
+  },
+  cardPointsText: {
+    fontSize: 14,
+    color: '#00000075'
+  }
 });
 
 export default BalanceScreen;

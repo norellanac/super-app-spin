@@ -52,7 +52,7 @@ const BeneficiosScreen = () => {
         <Text variant="title-two-semibold" style={benefitsStyles.title}>
           Beneficios
         </Text>
-        <PointsInfo points={state.wallet}/>
+        <PointsInfo points={state.wallet} imageSRC={require('../assets/Premia1.png')}/>
         <BeneficiosCardGrid/>
         <SubsectionComingSoon title='Acumula productos' description='Muy pronto podrás sumar tus compras y ganar productos de regalo' imageSource={require('../assets/acumula.png')}/>
         <SubsectionComingSoon title='Gana más puntos' description='Muy pronto podrás ganar más puntos en el total de tu compra' imageSource={require('../assets/ganamas.png')}/>

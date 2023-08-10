@@ -58,13 +58,13 @@ const CuentaScreen = () => {
               variant: 'two-button',
               description: 'Recuerda que puedes volver a entrar a la app cuando quieras',
               firstButtonProps: {
-                variant: 'primary',
+                //variant: 'primary',
                 text: 'Sí, cerrar sesión',
                 onPress: () => handleLogOff(),
                 enableCloseOnPress: true,
               },
               secondButtonProps: {
-                variant: 'secondary',
+                //variant: 'secondary',
                 text: 'En otro momento',
                 onPress: () => Modal.hide(),
               },

@@ -5,12 +5,12 @@ import Tag from '../components/atoms/Tag';
 
 interface PointsInfoProps {
   points: number;
+  imageSRC?: any;
 }
 
-const PointsInfo = ({ points }: PointsInfoProps) => {
-
-    const currentPoints = points;
-    const value = (currentPoints*.10).toFixed(2);
+const PointsInfo = ({ points, imageSRC }: PointsInfoProps) => {
+  const currentPoints = points;
+  const value = (currentPoints * 0.1).toFixed(2);
 
   return (
     <View style={styles.container}>
@@ -23,7 +23,7 @@ const PointsInfo = ({ points }: PointsInfoProps) => {
         </Text>
         <View>
           <Tag
-            text={`Valen ${value}`}
+            text={`Valen $${value}`}
             variant="points"
             leftIcon={require('../assets/points.png')}
             size="large"
@@ -31,12 +31,12 @@ const PointsInfo = ({ points }: PointsInfoProps) => {
         </View>
       </View>
       <View style={styles.rightContent}>
-            <Image
-              source={require('../assets/Premia1.png')}
-              style={styles.image}
-              resizeMode="contain"
-            />
-          </View>
+        <Image
+          source={imageSRC}
+          style={styles.image}
+          resizeMode="contain"
+        />
+      </View>
     </View>
   );
 };
