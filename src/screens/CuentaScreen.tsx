@@ -4,11 +4,13 @@ import Text from '../components/Text/Text';
 import { useAppContext } from '../contexts/AppContext';
 import Tag from '../components/atoms/Tag';
 import ElementListItem from '../customComponents/ElementListItem';
+import Modal from '../components/atoms/Modal';
 
 const CuentaScreen = () => {
   const { state, dispatch } = useAppContext();
 
   const handleLogOff = () => {
+    Modal.hide();
     dispatch({
       type: 'LOGOUT',
     });
@@ -50,10 +52,29 @@ const CuentaScreen = () => {
         <ElementListItem
           title="Cierra sesión"
           leftIcon={require('../assets/logout.png')}
-          onPress={handleLogOff}
+          onPress={() => {
+            Modal.show({
+              title: '¿Quieres cerrar tu sesión?',
+              variant: 'two-button',
+              description: 'Recuerda que puedes volver a entrar a la app cuando quieras',
+              firstButtonProps: {
+                variant: 'primary',
+                text: 'Sí, cerrar sesión',
+                onPress: () => handleLogOff(),
+                enableCloseOnPress: true,
+              },
+              secondButtonProps: {
+                variant: 'secondary',
+                text: 'En otro momento',
+                onPress: () => Modal.hide(),
+              },
+            });
+          }}
         />
       </View>
-      
+
+      <Modal.Component />
+
       <View style={styles.versionBlock}>
         <Text style={styles.text}>Versión: 1.203.430.983</Text>
       </View>

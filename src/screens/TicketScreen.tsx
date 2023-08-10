@@ -1,11 +1,19 @@
 import React from 'react';
-import { Alert, FlatList, Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+  Alert,
+  FlatList,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Text from '../components/Text/Text';
 import HomeIconFigma from '../icons/HomeIconFigma';
 import BottomSheet from '../components/atoms/BottomSheet';
 import Button from '../components/Button/Button';
 import ElementListItem from '../customComponents/ElementListItem';
 import { useNavigation } from '@react-navigation/native';
+import Modal from '../components/atoms/Modal';
 
 const TicketScreen = () => {
   const navigation = useNavigation();
@@ -89,7 +97,7 @@ const TicketScreen = () => {
         text={'Usar certificado de regalo'}
       />
       <Button
-        variant='secondary'
+        variant="secondary"
         onPress={() => {
           Alert.alert(
             'Se guardó tu ticket',
@@ -97,6 +105,18 @@ const TicketScreen = () => {
           );
         }}
         text={'Guardar para otro momento'}
+      />
+      <Modal.Component />
+      <Button
+        variant="secondary"
+        text="Guardar para otro momento"
+        onPress={() => {
+          Modal.show({
+            title: 'Se guardó tu ticket',
+            variant: 'content',
+            description: 'Puedes verlo en tu historial de movimientos',
+          });
+        }}
       />
     </>
   );
