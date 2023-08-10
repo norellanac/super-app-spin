@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
+
+//Comopnents
 import Text from '../components/Text/Text';
-import { useAppContext } from '../contexts/AppContext';
 import Button from '../components/Button/Button';
 import TextInput from '../components/atoms/TextInput';
 import Disclaimer from '../components/Disclaimer/Disclaimer';
-import { useNavigation } from '@react-navigation/native';
 import PointsInfo from '../customComponents/PointsInfo';
-import { FlatList } from 'react-native-gesture-handler';
+
+//Navegacion
+import { useNavigation } from '@react-navigation/native';
+
+//Context
+import { useAppContext } from '../contexts/AppContext';
 
 const BalanceScreen = () => {
   const { state } = useAppContext();
@@ -70,12 +75,7 @@ const BalanceScreen = () => {
     <SafeAreaView style={styles.safeContainer}>
       <View style={styles.container}>
         <View
-          style={{
-            marginBottom: 15,
-            borderBottomWidth: 1,
-            borderBottomColor: '#00000025',
-            paddingBottom: 10,
-          }}>
+          style={styles.topSection}>
           <PointsInfo
             points={state.wallet}
           />
@@ -109,7 +109,7 @@ const BalanceScreen = () => {
             El valor máximo que puedes cambiar es $1,000.00
           </Text>
           {shouldShowDisclaimer && (
-            <View style={{paddingTop: 15}}>
+            <View style={styles.disclaimerSection}>
               <Disclaimer
                 variant="custom"
                 text="Recuerda que necesitas tener mínimo $20.00 en puntos para poder cambiarlos con la marca que elegiste"
@@ -122,13 +122,7 @@ const BalanceScreen = () => {
           )}
         </View>
         <View
-          style={{
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            paddingBottom: 25,
-            paddingTop: 25,
-            flex: 1,
-          }}>
+          style={styles.bottomSection}>
           <Button
             disabled={shouldShowDisclaimer && parseInt(textInputValue) < 20}
             variant="primary"
@@ -196,6 +190,22 @@ const styles = StyleSheet.create({
   cardPointsText: {
     fontSize: 14,
     color: '#00000075'
+  },
+  bottomSection: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    paddingBottom: 25,
+    paddingTop: 25,
+    flex: 1,
+  },
+  topSection: {
+    marginBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#00000025',
+    paddingBottom: 10,
+  },
+  disclaimerSection: {
+    paddingTop: 15,
   }
 });
 

@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+
+//Components
 import Text from '../components/Text/Text';
-import useFetchMerchantList from '../hooks/useFetchMerchantList';
 import Spinner from '../components/atoms/Spinner/Spinner';
-import ElementListItem from '../customComponents/ElementListItem';
 import MerchantCard from '../customComponents/MerchantCard';
+
+//Hooks
+import useFetchMerchantList from '../hooks/useFetchMerchantList';
+
 
 const MerchantsScreen = () => {
   const {
