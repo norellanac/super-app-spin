@@ -28,9 +28,14 @@ const SubAppNavigator = () => {
     navigation.navigate('BeneficiosScreen' as never);
   };
 
-  //Events Handler for Navigation
+  //Events Handler for Movements
   const handleArrowNavPressDetails = () => {
     navigation.navigate('MovimientosScreen' as never);
+  };
+
+  //Events Handler for Exchange
+  const handleArrowNavPressBalance = () => {
+    navigation.navigate('exchangeScreen' as never);
   };
 
   return (
@@ -109,8 +114,17 @@ const SubAppNavigator = () => {
         name="BalanceScreen"
         component={BalanceScreen}
         options={{
-          headerShown: true,
-          headerTitle: 'Cambia tus puntos',
+          header: () => (
+            <NavBar
+              variant={'primary'}
+              title={'Cambia tus puntos'}
+              leftSection={
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+                  <ArrowNav onPress={handleArrowNavPressBalance}/>
+                </View>
+              }
+            />
+          ),
         }}
       />
       <Stack.Screen

@@ -163,16 +163,29 @@
   ],
   "merchants": [
     {
+      "name": "Volaris",
+      "id": 1,
+      "cat": "Movilidad"
+    },
+    {
+      "name": "Smart Fit",
+      "id": 2,
+      "cat": "Deportes"
+    },
+    {
+      "name": "VIX",
+      "id": 3,
+      "cat": "Entretenimiento"
+    },
+    {
       "name": "Oxxo",
-      "id": 1
+      "id": 4,
+      "cat": "Customer"
     },
     {
       "name": "Oxxo Gas",
-      "id": 2
-    },
-    {
-      "name": "Volaris",
-      "id": 3
+      "id": 5,
+      "cat": "Movilidad"
     }
   ]
 }

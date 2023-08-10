@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { StyleSheet, FlatList, View } from "react-native";
 import MonthTitle from '../customComponents/MonthTitle';
 import MovementItem from '../customComponents/MovimientoComponent';

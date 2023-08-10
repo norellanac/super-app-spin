@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import Text from '../components/Text/Text';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +14,7 @@ const MovementItem = ({ entity, date, points, operation, transactionNo }: Moveme
 
   const navigation = useNavigation();
 
-  const imageSource = getImageSource(entity);
+  const imageSource = useMemo(() => getImageSource(entity), [entity]);
   const pointsColor = operation === 'earned' ? 'black' : 'red';
 
   const handlePress = () => {

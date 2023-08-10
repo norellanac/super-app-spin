@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import Text from '../components/Text/Text';
 import CardPoints from '../customComponents/CardPoints';
 import { useAppContext } from '../contexts/AppContext';
@@ -16,7 +16,7 @@ const BalanceScreen = () => {
 
   const [textInputValue, setTextInputValue] = useState('0');
 
-  const handleCardPress = amount => {
+  const handleCardPress = (amount:number) => {
     const newValue = (parseFloat(textInputValue) || 0) + amount;
     setTextInputValue(newValue.toString());
   };
@@ -32,7 +32,7 @@ const BalanceScreen = () => {
     return availableCards.filter(card => pointsUser >= card.points);
   };
 
-  const renderCard = card => (
+  const renderCard = (card: any) => (
     <View style={{ margin: 5 }} key={card.amount}>
       <Button
         disabled={pointsUser / 10 - parseInt(textInputValue) < card.amount}
@@ -41,7 +41,7 @@ const BalanceScreen = () => {
         text={`$${card.amount}`}
         size={card.amount === 200 ? 'small' : 'large'}
       />
-      <Text variant="subtitle-small"> {card.points} puntos</Text>
+      <Text variant='default-body'> {card.points} puntos</Text>
     </View>
   );
 
