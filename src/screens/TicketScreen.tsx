@@ -40,37 +40,19 @@ type Props = { route: TicketScreenScreenRouteProp };
 
 const TicketScreen = ({ route }: Props) => {
   
+  //Data
+  const { name, amount } = route.params;
+  const imageSRC = getImageSource(name);
+
   //AppContext
   const { state, dispatch } = useAppContext();
   const today = new Date();
 
-  useEffect(() => {
-    const newItem = {
-      entity: name,
-      date: today.toString(),
-      points: -(amount*10),
-      operation: 'spent',
-      transactionNo: transactionID,
-      id: state.userGiftHistory.length + 1,
-      promoCode: promoCode,
-    };
-
-    console.log();
-
-    // Actualiza la lista userGiftHistory en el estado global
-    dispatch({
-      type: 'SET_USER_GIFT_HISTORY',
-      payload: [...state.userGiftHistory, newItem],
-    });
-  }, []);
-
-  //Data
-  const { name, amount } = route.params;
-  const imageSRC = getImageSource(name);
-  
+  //Get Codes
   const promoCode = generatePromoCode();
   const transactionID = generateTransactionID();
 
+  //How to use certificate
   const navigation = useNavigation();
   const data = [
     { id: 1, description: 'Copia tu certificado de regalo de Spin Premia' },
@@ -82,6 +64,38 @@ const TicketScreen = ({ route }: Props) => {
         'Antes de terminar tu compra, pega o escribe el certificado de regalo al elegir tu método de pago',
     },
   ];
+
+  //Dates
+  const adjustedDate = new Date(today);
+  adjustedDate.setMonth(today.getMonth() + 2);
+
+  //Object
+  const todayDate = new Date(adjustedDate);
+  todayDate.setMonth(today.getMonth());
+
+  useEffect(() => {
+    const newItem = {
+      entity: name,
+      date: todayDate.toString(),
+      points: -(amount*10),
+      operation: 'spent',
+      transactionNo: transactionID,
+      id: state.userGiftHistory.length + 1,
+      promoCode: promoCode,
+    };
+
+    console.log(todayDate);
+
+    // Actualiza la lista userGiftHistory en el estado global
+    dispatch({
+      type: 'SET_USER_GIFT_HISTORY',
+      payload: [...state.userGiftHistory, newItem],
+    });
+
+    const updatedWallet = state.wallet - (amount*10);
+    dispatch({ type: 'SET_WALLET', payload: updatedWallet });
+  }, [name, amount]);
+
   return (
     <SafeAreaView>
       <Image
@@ -110,7 +124,6 @@ const TicketScreen = ({ route }: Props) => {
           <View style={styles.code}>
             <View style={styles.infoContainer}>
               <Text variant="caption-medium" style={styles.codeTitle}>
-                {' '}
                 Certificado de regalo
               </Text>
               <Text variant="caption-medium" style={styles.codeDescription}>
@@ -183,7 +196,7 @@ const TicketScreen = ({ route }: Props) => {
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Válido hasta el:</Text>
               <Text style={styles.infoValue}>
-                {detailsDate(today.setMonth(today.getMonth() + 2))}
+                {detailsDate(adjustedDate)}
               </Text>
             </View>
           </View>
