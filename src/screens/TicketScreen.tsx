@@ -84,14 +84,13 @@ const TicketScreen = ({ route }: Props) => {
       promoCode: promoCode,
     };
 
-    console.log(todayDate);
-
-    // Actualiza la lista userGiftHistory en el estado global
+    //Update movements list
     dispatch({
       type: 'SET_USER_GIFT_HISTORY',
-      payload: [...state.userGiftHistory, newItem],
+      payload: [newItem, ...state.userGiftHistory],
     });
 
+    //Update Wallet State
     const updatedWallet = state.wallet - (amount*10);
     dispatch({ type: 'SET_WALLET', payload: updatedWallet });
   }, [name, amount]);
