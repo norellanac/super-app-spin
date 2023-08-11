@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
-  Alert,
   FlatList,
   Image,
   SafeAreaView,
@@ -39,14 +38,11 @@ type TicketScreenScreenRouteProp = RouteProp<
 >;
 type Props = { route: TicketScreenScreenRouteProp };
 
-
 const TicketScreen = ({ route }: Props) => {
-
   //AppContext
   const { state, dispatch } = useAppContext();
 
   useEffect(() => {
-
     const newItem = {
       entity: name,
       date: today.toString(),
@@ -58,13 +54,16 @@ const TicketScreen = ({ route }: Props) => {
     };
 
     // Actualiza la lista userGiftHistory en el estado global
-    dispatch({ type: 'SET_USER_GIFT_HISTORY', payload: [...state.userGiftHistory, newItem] });
-  }, []); 
+    dispatch({
+      type: 'SET_USER_GIFT_HISTORY',
+      payload: [...state.userGiftHistory, newItem],
+    });
+  }, []);
 
   //Data
-  const { name, amount} = route.params;
+  const { name, amount } = route.params;
   const imageSRC = getImageSource(name);
-  const today = new Date;
+  const today = new Date();
   const promoCode = generatePromoCode();
   const transactionID = generateTransactionID();
 
@@ -73,13 +72,20 @@ const TicketScreen = ({ route }: Props) => {
     { id: 1, description: 'Copia tu certificado de regalo de Spin Premia' },
     { id: 2, description: 'Ingresa al sitio web' },
     { id: 3, description: 'Elije tu premio a canjear' },
-    { id: 4, description: 'Antes de terminar tu compra, pega o escribe el certificado de regalo al elegir tu método de pago'},
+    {
+      id: 4,
+      description:
+        'Antes de terminar tu compra, pega o escribe el certificado de regalo al elegir tu método de pago',
+    },
   ];
   return (
     <SafeAreaView>
-      <Image source={require('../assets/spinPlus/Ticket.png')} style={styles.backgroundImage} />
+      <Image
+        source={require('../assets/spinPlus/Ticket.png')}
+        style={styles.backgroundImage}
+      />
       <ScrollView>
-        <View style={{marginHorizontal: 5}}>
+        <View style={{ marginHorizontal: 5 }}>
           <Text variant="title-two-semibold" style={styles.title}>
             Detalles del movimiento
           </Text>
@@ -93,44 +99,66 @@ const TicketScreen = ({ route }: Props) => {
         </View>
         <View style={styles.entityData}>
           <Text style={styles.entity}>{name}</Text>
-          <Text style={styles.entityText}>Toca el ícono para copiar el certificado de regalo o escríbelo desde la app o página web de Volaris</Text>
+          <Text style={styles.entityText}>
+            Toca el ícono para copiar el certificado de regalo o escríbelo desde
+            la app o página web de Volaris
+          </Text>
           <View style={styles.code}>
             <View style={styles.infoContainer}>
-              <Text variant='caption-medium' style={styles.codeTitle}> Certificado de regalo</Text>
-              <Text variant='caption-medium' style={styles.codeDescription}>{promoCode}</Text>
+              <Text variant="caption-medium" style={styles.codeTitle}>
+                {' '}
+                Certificado de regalo
+              </Text>
+              <Text variant="caption-medium" style={styles.codeDescription}>
+                {promoCode}
+              </Text>
             </View>
             <View style={styles.iconContainer}>
-              <TicketIcon/>
+              <TicketIcon />
             </View>
           </View>
         </View>
-        <View style={{backgroundColor: '#ffffff'}}>
-          <View style={{flex: 1, alignItems: 'center', alignContent: 'center', backgroundColor: '#ffffff'}}>
-            <Text style={{color: 'blue', fontWeight: '600', fontSize: 15, paddingVertical: 20}} onPress={() => {
-              BottomSheet.show({
-                title: '¿Cómo usar un certificado de regalo?',
-                children: (
-                  <FlatList
-                    data={data}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({ item }) => (
-                      <ElementListItem
-                        title={`${item.id} . ${item.description}`}
-                        onPress={() =>
-                          navigation.navigate('BalanceScreen' as never)
-                        }
-                      />
-                    )}
-                  />
-                ),
-                headerBackgroundColor: '#ffffff',
-                bodyBackgroundColor: '#ffffff',
-                contentStyle: {
-                  paddingHorizontal: 50,
-                },
-              });
-            }}
-            >¿Cómo usar mi certificado de regalo?</Text>
+        <View style={{ backgroundColor: '#ffffff' }}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              alignContent: 'center',
+              backgroundColor: '#ffffff',
+            }}>
+            <Text
+              style={{
+                color: 'blue',
+                fontWeight: '600',
+                fontSize: 15,
+                paddingVertical: 20,
+              }}
+              onPress={() => {
+                BottomSheet.show({
+                  title: '¿Cómo usar un certificado de regalo?',
+                  children: (
+                    <FlatList
+                      data={data}
+                      keyExtractor={item => item.id.toString()}
+                      renderItem={({ item }) => (
+                        <ElementListItem
+                          title={`${item.id} . ${item.description}`}
+                          onPress={() =>
+                            navigation.navigate('BalanceScreen' as never)
+                          }
+                        />
+                      )}
+                    />
+                  ),
+                  headerBackgroundColor: '#ffffff',
+                  bodyBackgroundColor: '#ffffff',
+                  contentStyle: {
+                    paddingHorizontal: 50,
+                  },
+                });
+              }}>
+              ¿Cómo usar mi certificado de regalo?
+            </Text>
             <BottomSheet.Component />
           </View>
           <View style={{ marginHorizontal: 15 }}>
@@ -140,7 +168,9 @@ const TicketScreen = ({ route }: Props) => {
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Valen:</Text>
-              <Text style={styles.infoValue}>{formattedMontoTotalTicket(amount)}</Text>
+              <Text style={styles.infoValue}>
+                {formattedMontoTotalTicket(amount)}
+              </Text>
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Fecha:</Text>
@@ -148,27 +178,49 @@ const TicketScreen = ({ route }: Props) => {
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Válido hasta el:</Text>
-              <Text style={styles.infoValue}>{detailsDate(today.setMonth(today.getMonth() + 2))}</Text>
+              <Text style={styles.infoValue}>
+                {detailsDate(today.setMonth(today.getMonth() + 2))}
+              </Text>
             </View>
           </View>
           <View style={styles.infoSectionBottom}>
-            <Text style={styles.transactionNoHeader}>Número de transacción</Text>
+            <Text style={styles.transactionNoHeader}>
+              Número de transacción
+            </Text>
             <Text style={styles.transactionNo}>{transactionID}</Text>
-          </View>        
-          <View style={{ marginHorizontal: 15, gap: 8, paddingBottom: 25}}>
+          </View>
+          <View style={{ marginHorizontal: 15, gap: 8, paddingBottom: 25 }}>
             <Button
-              variant='primary'
+              variant="primary"
               onPress={() => {
-                Alert.alert(
-                  'Se guardó tu ticket',
-                  'Puedes verlo en tu historial de movimientos',
-                );
+                BottomSheet.show({
+                  title: '¿Cómo usar un certificado de regalo?',
+                  children: (
+                    <FlatList
+                      data={data}
+                      keyExtractor={item => item.id.toString()}
+                      renderItem={({ item }) => (
+                        <ElementListItem
+                          title={`${item.id} . ${item.description}`}
+                          onPress={() =>
+                            navigation.navigate('BalanceScreen' as never)
+                          }
+                        />
+                      )}
+                    />
+                  ),
+                  headerBackgroundColor: '#ffffff',
+                  bodyBackgroundColor: '#ffffff',
+                  contentStyle: {
+                    paddingHorizontal: 50,
+                  },
+                });
               }}
               text={'Usar certificado de regalo'}
             />
             <Modal.Component />
             <Button
-              variant='secondary'
+              variant="secondary"
               text="Guardar para otro momento"
               onPress={() => {
                 Modal.show({
@@ -178,12 +230,10 @@ const TicketScreen = ({ route }: Props) => {
                 });
               }}
             />
-          </View>  
+          </View>
         </View>
-        
       </ScrollView>
     </SafeAreaView>
-    
   );
 };
 
@@ -192,10 +242,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch'
+    resizeMode: 'stretch',
   },
-  imageContainer:{
-    alignItems: 'center', 
+  imageContainer: {
+    alignItems: 'center',
     zIndex: 2,
   },
   entityImage: {
@@ -211,9 +261,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
   entityData: {
-    backgroundColor: '#ffffff', 
-    marginHorizontal: 15, 
-    padding: 15, 
+    backgroundColor: '#ffffff',
+    marginHorizontal: 15,
+    padding: 15,
     alignItems: 'center',
     borderRadius: 8,
     marginTop: -35,
@@ -231,28 +281,28 @@ const styles = StyleSheet.create({
   code: {
     backgroundColor: '#00000009',
     padding: 10,
-    borderRadius: 5, 
+    borderRadius: 5,
     flexDirection: 'row',
   },
   infoContainer: {
     flex: 0.8,
-    gap: 2
+    gap: 2,
   },
   iconContainer: {
     flex: 0.2,
-    alignItems: 'flex-end', 
-    ustifyContent: 'center', 
-    marginTop: 16
+    alignItems: 'flex-end',
+    ustifyContent: 'center',
+    marginTop: 16,
   },
-  codeTitle:{
+  codeTitle: {
     fontSize: 13,
     fontWeight: '400',
   },
-  codeDescription:{
+  codeDescription: {
     fontSize: 18,
     fontWeight: '600',
     marginVertical: -15,
-    marginLeft: -10
+    marginLeft: -10,
   },
   entityText: {
     fontSize: 15,
