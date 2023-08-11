@@ -39,19 +39,23 @@ type TicketScreenScreenRouteProp = RouteProp<
 type Props = { route: TicketScreenScreenRouteProp };
 
 const TicketScreen = ({ route }: Props) => {
+  
   //AppContext
   const { state, dispatch } = useAppContext();
+  const today = new Date();
 
   useEffect(() => {
     const newItem = {
       entity: name,
       date: today.toString(),
-      points: -amount,
+      points: -(amount*10),
       operation: 'spent',
       transactionNo: transactionID,
       id: state.userGiftHistory.length + 1,
       promoCode: promoCode,
     };
+
+    console.log();
 
     // Actualiza la lista userGiftHistory en el estado global
     dispatch({
@@ -63,7 +67,7 @@ const TicketScreen = ({ route }: Props) => {
   //Data
   const { name, amount } = route.params;
   const imageSRC = getImageSource(name);
-  const today = new Date();
+  
   const promoCode = generatePromoCode();
   const transactionID = generateTransactionID();
 
@@ -164,7 +168,7 @@ const TicketScreen = ({ route }: Props) => {
           <View style={{ marginHorizontal: 15 }}>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Puntos cambiados:</Text>
-              <Text style={styles.infoValue}>{amount}</Text>
+              <Text style={styles.infoValue}>{amount*10}</Text>
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Valen:</Text>

@@ -101,7 +101,7 @@ const BottomNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
-      <Stack.Screen name="Home" component={HomeTabs} />
+      <Stack.Screen name="HomeScreen" component={HomeTabs} options={{headerShown: false}}/>
       <Stack.Screen
         name="MovimientosScreen"
         component={MovimientosScreen}
@@ -173,7 +173,7 @@ const BottomNavigation = () => {
       />
       <Stack.Screen
         name="BalanceScreen"
-        component={BalanceScreen}
+        component={BalanceScreen as never}
         options={{
           header: () => (
             <NavBar
@@ -196,7 +196,7 @@ const BottomNavigation = () => {
       />
       <Stack.Screen
         name="TicketScreen"
-        component={TicketScreen}
+        component={TicketScreen as never}
         options={{
           headerShown: true,
           headerTitle: 'Detalles de la transacción',
