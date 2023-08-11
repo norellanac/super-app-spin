@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Polyline } from "react-native-svg";
 
-const ArrowNav = (props: any) => (
+const ArrowNav = ({ color = "#1723D3", ...props }: any) => (
   <Svg
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@ const ArrowNav = (props: any) => (
     <Polyline
       style={{
         fill: "none",
-        stroke: "#1723D3",
+        stroke: color,
         strokeWidth: 3,
         strokeMiterlimit: 10,
       }}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { View, SafeAreaView, StyleSheet, Image, StatusBar } from 'react-native';
 
 //FEMSA Components
 import Text from '../components/Text/Text';
@@ -24,6 +24,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
+      <StatusBar barStyle={'light-content'}/>
       <Image source={require('../assets/spinPlus/Splash2x.jpg')} style={styles.backgroundImage} />
       <View style={styles.centerContainer}>
         <Image source={require('../assets/spinPlus/SpinPlusLogo.png')} style={styles.logoImage} />

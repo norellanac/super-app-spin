@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  StatusBar
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -19,6 +20,7 @@ import Button from '../components/Button/Button';
 import ElementListItem from '../customComponents/ElementListItem';
 import TicketIcon from '../icons/TicketIcon';
 import Modal from '../components/atoms/Modal';
+import ArrowNav from '../icons/NavigationArrow';
 
 //Utils
 import { formattedMontoTotalTicket } from '../utils/formatMoney';
@@ -39,7 +41,9 @@ type TicketScreenScreenRouteProp = RouteProp<
 type Props = { route: TicketScreenScreenRouteProp };
 
 const TicketScreen = ({ route }: Props) => {
-  
+  //Navigation
+  const navigation = useNavigation();
+
   //Data
   const { name, amount } = route.params;
   const imageSRC = getImageSource(name);
@@ -53,7 +57,6 @@ const TicketScreen = ({ route }: Props) => {
   const transactionID = generateTransactionID();
 
   //How to use certificate
-  const navigation = useNavigation();
   const data = [
     { id: 1, description: 'Copia tu certificado de regalo de Spin Premia' },
     { id: 2, description: 'Ingresa al sitio web' },
@@ -77,7 +80,7 @@ const TicketScreen = ({ route }: Props) => {
     const newItem = {
       entity: name,
       date: todayDate.toString(),
-      points: -(amount*10),
+      points: -(amount * 10),
       operation: 'spent',
       transactionNo: transactionID,
       id: state.userGiftHistory.length + 1,
@@ -91,21 +94,40 @@ const TicketScreen = ({ route }: Props) => {
     });
 
     //Update Wallet State
-    const updatedWallet = state.wallet - (amount*10);
+    const updatedWallet = state.wallet - amount * 10;
     dispatch({ type: 'SET_WALLET', payload: updatedWallet });
   }, [name, amount]);
 
   return (
     <SafeAreaView>
+      <StatusBar barStyle={'light-content'}/>
       <Image
         source={require('../assets/spinPlus/Ticket.png')}
         style={styles.backgroundImage}
       />
       <ScrollView>
-        <View style={{ marginHorizontal: 5 }}>
-          <Text variant="title-two-semibold" style={styles.title}>
-            Detalles del movimiento
-          </Text>
+        <View style={{ marginHorizontal: 5, flexDirection: 'row' }}>
+          <View style={{ flex: 0.05, marginLeft: 15 }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: -8,
+              }}>
+              <ArrowNav
+                onPress={() => {navigation.navigate("Beneficios" as never)}}
+                color="#fff"
+                width={30}
+                height={30}
+              />
+            </View>
+          </View>
+          <View style={{ flex: 0.95 }}>
+            <Text variant="title-two-semibold" style={styles.title}>
+              Detalles del movimiento
+            </Text>
+          </View>
         </View>
         <View style={styles.imageContainer}>
           <Image
@@ -153,23 +175,27 @@ const TicketScreen = ({ route }: Props) => {
                 BottomSheet.show({
                   title: '¿Cómo usar un certificado de regalo?',
                   children: (
-                    <FlatList
-                      data={data}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => (
-                        <ElementListItem
-                          title={`${item.id} . ${item.description}`}
-                          onPress={() =>
-                            navigation.navigate('BalanceScreen' as never)
-                          }
-                        />
-                      )}
-                    />
+                    <View>
+                      <FlatList
+                        style={{marginBottom: 25}}
+                        data={data}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({ item }) => (
+                          <ElementListItem
+                            title={`${item.id} . ${item.description}`}
+                            onPress={() =>
+                              navigation.navigate('BalanceScreen' as never)
+                            }
+                          />
+                        )}
+                      />
+                      <Button variant='primary' text='Ir a Beneficios' onPress={() => {navigation.navigate("Beneficios" as never)}} style={{marginVertical: 25}}/>
+                    </View>
                   ),
                   headerBackgroundColor: '#ffffff',
                   bodyBackgroundColor: '#ffffff',
                   contentStyle: {
-                    paddingHorizontal: 50,
+                    paddingHorizontal: 15,
                   },
                 });
               }}>
@@ -180,7 +206,7 @@ const TicketScreen = ({ route }: Props) => {
           <View style={{ marginHorizontal: 15 }}>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Puntos cambiados:</Text>
-              <Text style={styles.infoValue}>{amount*10}</Text>
+              <Text style={styles.infoValue}>{amount * 10}</Text>
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Valen:</Text>
@@ -194,9 +220,7 @@ const TicketScreen = ({ route }: Props) => {
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Válido hasta el:</Text>
-              <Text style={styles.infoValue}>
-                {detailsDate(adjustedDate)}
-              </Text>
+              <Text style={styles.infoValue}>{detailsDate(adjustedDate)}</Text>
             </View>
           </View>
           <View style={styles.infoSectionBottom}>
@@ -212,23 +236,27 @@ const TicketScreen = ({ route }: Props) => {
                 BottomSheet.show({
                   title: '¿Cómo usar un certificado de regalo?',
                   children: (
-                    <FlatList
-                      data={data}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => (
-                        <ElementListItem
-                          title={`${item.id} . ${item.description}`}
-                          onPress={() =>
-                            navigation.navigate('BalanceScreen' as never)
-                          }
-                        />
-                      )}
-                    />
+                    <View>
+                      <FlatList
+                        style={{marginBottom: 25}}
+                        data={data}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({ item }) => (
+                          <ElementListItem
+                            title={`${item.id} . ${item.description}`}
+                            onPress={() =>
+                              navigation.navigate('BalanceScreen' as never)
+                            }
+                          />
+                        )}
+                      />
+                      <Button variant='primary' text='Ir a Beneficios' onPress={() => {navigation.navigate("Beneficios" as never)}} style={{marginVertical: 25}}/>
+                    </View>
                   ),
                   headerBackgroundColor: '#ffffff',
                   bodyBackgroundColor: '#ffffff',
                   contentStyle: {
-                    paddingHorizontal: 50,
+                    paddingHorizontal: 15,
                   },
                 });
               }}
@@ -241,8 +269,16 @@ const TicketScreen = ({ route }: Props) => {
               onPress={() => {
                 Modal.show({
                   title: 'Se guardó tu ticket',
-                  variant: 'content',
+                  variant: 'one-button',
                   description: 'Puedes verlo en tu historial de movimientos',
+                  firstButtonProps: {
+                    text: 'Ir a movimientos',
+                    onPress: () => {
+                      Modal.hide();
+                      navigation.navigate("MovimientosScreen" as never);
+                  },
+                    enableCloseOnPress: true,
+                  },
                 });
               }}
             />
