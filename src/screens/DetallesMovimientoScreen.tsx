@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, SafeAreaView } from 'react-native';
 import Text from '../components/Text/Text';
 import { RouteProp } from '@react-navigation/native';
+import TicketIcon from '../icons/TicketIcon';
 
 //Types
 import { RootStackParamList } from '../types/RootStackParamList';
@@ -23,7 +24,7 @@ type Props = {
 const DetallesScreen = ({ route }: Props) => {
 
   // Extraer los datos de la ruta
-  const { entity, date, points, operation, transactionNo, imageSource } = route.params;
+  const { entity, date, points, operation, transactionNo, imageSource, promoCode } = route.params;
 
   // Determinar colores y estado
   const pointsColor = operation === 'earned' ? 'black' : 'red';
@@ -45,7 +46,7 @@ const DetallesScreen = ({ route }: Props) => {
   const formattedDate = detailsDate(date);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         source={imageSource}
         style={styles.entityImage}
@@ -81,7 +82,24 @@ const DetallesScreen = ({ route }: Props) => {
         <Text style={styles.transactionNoHeader}>Número de transacción</Text>
         <Text style={styles.transactionNo}>{transactionNo}</Text>
       </View>
-    </View>
+      <View style={styles.infoSectionBottom}>
+        {promoCode ? (
+          <View style={styles.code}>
+            <View style={styles.infoContainer}>
+              <Text variant="caption-medium" style={styles.codeTitle}>
+                Certificado de regalo
+              </Text>
+              <Text variant="caption-medium" style={styles.codeDescription}>
+                {promoCode}
+              </Text>
+            </View>
+            <View style={styles.iconContainer}>
+              <TicketIcon />
+            </View>
+          </View>
+        ) : null}
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -172,6 +190,33 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '400',
     textAlign: 'center',
+  },
+  code: {
+    backgroundColor: '#00000009',
+    padding: 10,
+    borderRadius: 5,
+    flexDirection: 'row',
+    marginTop: 15,
+  },
+  infoContainer: {
+    flex: 0.8,
+    gap: 2,
+  },
+  iconContainer: {
+    flex: 0.2,
+    alignItems: 'flex-end',
+    ustifyContent: 'center',
+    marginTop: 16,
+  },
+  codeTitle: {
+    fontSize: 13,
+    fontWeight: '400',
+  },
+  codeDescription: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginVertical: -15,
+    marginLeft: -10,
   },
 });
 

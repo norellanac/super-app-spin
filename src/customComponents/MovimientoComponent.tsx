@@ -10,7 +10,7 @@ import { MovementItemProps } from '../types/MovementItem';
 import { formatDate } from '../utils/movementDate';
 import { getImageSource } from '../utils/movementImage';
 
-const MovementItem = ({ entity, date, points, operation, transactionNo }: MovementItemProps) => {
+const MovementItem = ({ entity, date, points, operation, transactionNo, promoCode }: MovementItemProps) => {
 
   const navigation = useNavigation();
 
@@ -18,7 +18,7 @@ const MovementItem = ({ entity, date, points, operation, transactionNo }: Moveme
   const pointsColor = operation === 'earned' ? 'black' : 'red';
 
   const handlePress = () => {
-    navigation.navigate('DetallesScreen', { entity, date, points, operation, transactionNo, imageSource });
+    navigation.navigate('DetallesScreen', { entity, date, points, operation, transactionNo, imageSource, promoCode });
   };
 
   return (
