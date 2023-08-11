@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Alert,
   FlatList,
@@ -29,6 +29,9 @@ import { getImageSource } from '../utils/movementImage';
 import { generatePromoCode } from '../utils/generatePromoCode';
 import { generateTransactionID } from '../utils/generateTransactionID';
 
+//Contex
+import { useAppContext } from '../contexts/AppContext';
+
 //Types
 type TicketScreenScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -38,6 +41,25 @@ type Props = { route: TicketScreenScreenRouteProp };
 
 
 const TicketScreen = ({ route }: Props) => {
+
+  //AppContext
+  const { state, dispatch } = useAppContext();
+
+  useEffect(() => {
+
+    const newItem = {
+      entity: name,
+      date: today.toString(),
+      points: -amount,
+      operation: 'spent',
+      transactionNo: transactionID,
+      id: state.userGiftHistory.length + 1,
+      promoCode: promoCode,
+    };
+
+    // Actualiza la lista userGiftHistory en el estado global
+    dispatch({ type: 'SET_USER_GIFT_HISTORY', payload: [...state.userGiftHistory, newItem] });
+  }, []); 
 
   //Data
   const { name, amount} = route.params;

@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 80,
     height: 80,
+    borderRadius: 100,
   },
   infoSection: {
     marginTop: 20,
