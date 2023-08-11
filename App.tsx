@@ -8,7 +8,7 @@ import { StatusBar } from 'react-native';
 const App = () => {
   return (
     <AppProvider>
-      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'}/>
+      
       <ThemeProvider>
         <MainNavigator />
       </ThemeProvider>

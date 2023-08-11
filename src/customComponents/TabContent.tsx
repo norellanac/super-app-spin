@@ -23,6 +23,7 @@ export const TabContent = ({ data }: TabContentProps) => (
               points={movement.points}
               operation={movement.operation}
               transactionNo={movement.transactionNo}
+              promoCode={movement.promoCode}
             />
           ))}
         </View>

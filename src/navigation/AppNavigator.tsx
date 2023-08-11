@@ -118,7 +118,7 @@ const BottomNavigation = () => {
                     alignItems: 'center',
                     marginTop: 10,
                   }}>
-                  <ArrowNav onPress={navigation.goBack} />
+                  <ArrowNav onPress={() => {navigation.navigate("Beneficios" as never)}} />
                 </View>
               }
             />
@@ -198,7 +198,7 @@ const BottomNavigation = () => {
         name="TicketScreen"
         component={TicketScreen as never}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitle: 'Detalles de la transacción',
         }}
       />

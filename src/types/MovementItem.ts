@@ -4,4 +4,5 @@ export interface MovementItemProps {
     points: number,
     operation: string,
     transactionNo?: string,
+    promoCode?: number | string | any,
 }
