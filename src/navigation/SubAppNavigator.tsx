@@ -8,6 +8,8 @@ import DetallesScreen from '../screens/DetallesMovimientoScreen';
 //useNavigation methods
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 //Navigation Components
 import { View } from 'react-native';
@@ -17,8 +19,10 @@ import MerchantsScreen from '../screens/MerchantsScreen';
 import BalanceScreen from '../screens/BalanceScreen';
 import TicketScreen from '../screens/TicketScreen';
 
+//Types
+import { RootStackParamList } from '../types/RootStackParamList';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const SubAppNavigator = () => {
   const navigation = useNavigation();
@@ -131,7 +135,7 @@ const SubAppNavigator = () => {
         name="TicketScreen"
         component={TicketScreen}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitle: 'Detalles de la transacción',
         }}
       />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 
 //Comopnents
 import Text from '../components/Text/Text';
@@ -14,7 +15,15 @@ import { useNavigation } from '@react-navigation/native';
 //Context
 import { useAppContext } from '../contexts/AppContext';
 
-const BalanceScreen = () => {
+//Types
+import { RootStackParamList } from '../types/RootStackParamList';
+type BalanceScreenScreenRouteProp = RouteProp<RootStackParamList,'BalanceScreen'>;
+type Props = {route: BalanceScreenScreenRouteProp;};
+
+const BalanceScreen = ( { route }: Props ) => {
+
+  const { merchantName } = route.params;
+
   const { state } = useAppContext();
   const navigation = useNavigation();
   const { wallet: pointsUser } = state;
@@ -25,6 +34,10 @@ const BalanceScreen = () => {
     const newValue = (parseFloat(textInputValue) || 0) + amount;
     setTextInputValue(newValue.toString());
   };
+
+  const handleContinue = () =>{
+    navigation.navigate('TicketScreen', { name: merchantName, amount: parseFloat(textInputValue)});
+  }
 
   const generateCards = () => {
     const availableCards = [
@@ -127,7 +140,7 @@ const BalanceScreen = () => {
             disabled={shouldShowDisclaimer && parseInt(textInputValue) < 20}
             variant="primary"
             onPress={() => {
-              navigation.navigate('TicketScreen' as never);
+              handleContinue();
             }}
             text="Continuar"
             size="large"

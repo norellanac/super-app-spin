@@ -1,4 +1,4 @@
-export function detailsDate (date: string) {
+export function detailsDate (date: string | Date | any) {
     const options: Intl.DateTimeFormatOptions = {
       day: '2-digit',
       month: '2-digit',

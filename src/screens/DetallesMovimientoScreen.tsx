@@ -23,8 +23,7 @@ type Props = {
 const DetallesScreen = ({ route }: Props) => {
 
   // Extraer los datos de la ruta
-  const { entity, date, points, operation, transactionNo, imageSource } =
-    route.params;
+  const { entity, date, points, operation, transactionNo, imageSource } = route.params;
 
   // Determinar colores y estado
   const pointsColor = operation === 'earned' ? 'black' : 'red';
