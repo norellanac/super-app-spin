@@ -26,6 +26,8 @@ import { formattedMontoTotalTicket } from '../utils/formatMoney';
 import { completeDate } from '../utils/completeDate';
 import { detailsDate } from '../utils/detailsDate';
 import { getImageSource } from '../utils/movementImage';
+import { generatePromoCode } from '../utils/generatePromoCode';
+import { generateTransactionID } from '../utils/generateTransactionID';
 
 //Types
 type TicketScreenScreenRouteProp = RouteProp<
@@ -41,6 +43,8 @@ const TicketScreen = ({ route }: Props) => {
   const { name, amount} = route.params;
   const imageSRC = getImageSource(name);
   const today = new Date;
+  const promoCode = generatePromoCode();
+  const transactionID = generateTransactionID();
 
   const navigation = useNavigation();
   const data = [
@@ -71,7 +75,7 @@ const TicketScreen = ({ route }: Props) => {
           <View style={styles.code}>
             <View style={styles.infoContainer}>
               <Text variant='caption-medium' style={styles.codeTitle}> Certificado de regalo</Text>
-              <Text variant='caption-medium' style={styles.codeDescription}>42738499092812000</Text>
+              <Text variant='caption-medium' style={styles.codeDescription}>{promoCode}</Text>
             </View>
             <View style={styles.iconContainer}>
               <TicketIcon/>
@@ -127,7 +131,7 @@ const TicketScreen = ({ route }: Props) => {
           </View>
           <View style={styles.infoSectionBottom}>
             <Text style={styles.transactionNoHeader}>Número de transacción</Text>
-            <Text style={styles.transactionNo}>5dced89c-2b6e-4a1c-a715-c19b0a51</Text>
+            <Text style={styles.transactionNo}>{transactionID}</Text>
           </View>        
           <View style={{ marginHorizontal: 15, gap: 8, paddingBottom: 25}}>
             <Button
@@ -216,7 +220,7 @@ const styles = StyleSheet.create({
     flex: 0.2,
     alignItems: 'flex-end', 
     ustifyContent: 'center', 
-    marginTop: 9
+    marginTop: 16
   },
   codeTitle:{
     fontSize: 13,
@@ -225,6 +229,8 @@ const styles = StyleSheet.create({
   codeDescription:{
     fontSize: 18,
     fontWeight: '600',
+    marginVertical: -15,
+    marginLeft: -10
   },
   entityText: {
     fontSize: 15,
