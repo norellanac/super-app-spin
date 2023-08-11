@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import Text from '../components/Text/Text';
 import { useNavigation } from '@react-navigation/native';
@@ -8,15 +8,17 @@ import { getImageSource } from '../utils/movementImage';
 
 //Icons
 import NavigationArrowRight from '../icons/NavigationArrowRight';
+
 //Types
 import { MercahntCardProps } from '../types/MercahntCardProps';
+
 
 const MerchantCard = ({ name, cat, id }: MercahntCardProps) => {
   const navigation = useNavigation();
   const imageSource =  getImageSource(name);
 
   const handlePress = () => {
-    navigation.navigate('BalanceScreen' as never);
+    navigation.navigate('BalanceScreen', { merchantName: name });
   };
 
   return (

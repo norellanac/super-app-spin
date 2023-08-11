@@ -5,4 +5,5 @@ export interface Movement {
     points: number;
     operation: string;
     transactionNo?: string;
+    promoCode?: string | number;
   }
