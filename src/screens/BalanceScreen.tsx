@@ -105,22 +105,31 @@ const BalanceScreen = ( { route }: Props ) => {
               keyExtractor={item => item.amount.toString()}
             />
           )}
-          <Text variant="subtitle-medium" style={styles.inputText}>
-            Otro:
-          </Text>
-          <TextInput
-            variant="numeric"
-            placeholder="Monto en pesos"
-            value={textInputValue}
-            onChangeText={newValue => setTextInputValue(newValue)}
-            onValidation={isValid => {
-              console.log(isValid);
-            }}
-            label="Monto en pesos"
-          />
-          <Text style={styles.alertText}>
-            El valor máximo que puedes cambiar es $1,000.00
-          </Text>
+          {!shouldShowDisclaimer && (
+            <View>
+              <Text variant="subtitle-medium" style={styles.inputText}>
+                Otro:
+              </Text>
+              <TextInput
+                variant="numeric"
+                placeholder="Monto en pesos"
+                value={textInputValue}
+                onChangeText={newValue => setTextInputValue(newValue)}
+                onValidation={isValid => {
+                  console.log(isValid);
+                }}
+                error={`${
+                  parseInt(textInputValue) <= 1000
+                    ? ''
+                    : 'El valor máximo que puedes cambiar es $1,000.00'
+                }`}
+                label="Monto en pesos"
+              />
+              <Text style={styles.alertText}>
+                El valor máximo que puedes cambiar es $1,000.00
+              </Text>
+            </View>
+          )}
           {shouldShowDisclaimer && (
             <View style={styles.disclaimerSection}>
               <Disclaimer
